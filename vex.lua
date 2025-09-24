@@ -1433,8 +1433,9 @@ local EmbeddedModules = {
                 --TODO: make better
                 context:Register("GUI_TO_CODE",{Name = "转代码", IconMap = Explorer.ClassIcons, Icon = 18, OnClick = function()
                     local sList = selection.List
-                    local Code = "--Vex代码生成实例v1.0\nlocal C = {}\n"
+                    local Code = "--Vex代码生成实例v1.1\nlocal C = {}\n"
                     local propscode = ""
+                    local PrimaryPartCode = ""
                     local count = 1
 					local function random(obj)
 						local p = obj.Parent
@@ -1559,7 +1560,11 @@ local EmbeddedModules = {
 								for i,v in pairs(props) do
 									for o,b in pairs(v) do
 										if not b.tags.Deprecated and not b.tags.Hidden and not b.tags.ReadOnly and not b.PN:lower():find("content") and node[b.PN] ~= cnode[b.PN] then
-											propscode = propscode .. name .. "." .. b.PN .. " = " .. toLiteral(b.PV) .. "\n"
+											if b.PN ~= "PrimaryPart" then
+												propscode = propscode .. name .. "." .. b.PN .. " = " .. toLiteral(b.PV) .. "\n"
+											else
+												PrimaryPartCode = PrimaryPartCode .. name .. "." .. b.PN .. " = " .. toLiteral(b.PV) .. "\n"
+											end
 										end
 									end
 								end
@@ -1572,7 +1577,7 @@ local EmbeddedModules = {
 						iterative(sList[i].Obj)
 					end
 					
-                    env.setclipboard(Code .. "\n" .. propscode)
+                    env.setclipboard(Code .. "\n" .. propscode .. PrimaryPartCode)
                 end})
 				context:Register("VIEW_OBJECT",{Name = "查看物体 (右键取消)", IconMap = Explorer.ClassIcons, Icon = 5, OnClick = function()
 					local sList = selection.List

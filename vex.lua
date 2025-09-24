@@ -5,7 +5,8 @@
 
 	Vex is Improved more funcs on moon's dex
 	
-	--Last updated >> 2025/9/24
+	Last updated >> 2025/9/24
+	2025/9/24 >> instance to code changed code var name
 ]]
 local old = tick()
 local MultiSelect = false
@@ -1550,10 +1551,10 @@ local EmbeddedModules = {
 							end
 							local raw = node.Name:gsub("\n", ""):gsub(" ", "")
 							local varid = raw:match("^[a-zA-Z][a-zA-Z0-9]*$") and raw
-							local name = varid or random(node)
+							local name = random(node)
 							local code = [[
 %s%s = Instance.new("%s")]]
-							code = code:format(varid and "local " or "", name, node.ClassName)
+							code = code:format("", name, node.ClassName)
 							local function toCode(props)
 								for i,v in pairs(props) do
 									for o,b in pairs(v) do

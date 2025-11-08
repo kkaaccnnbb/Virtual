@@ -1,5 +1,5 @@
 --[[
-env additions
+Simple env additions
 by ,_M
 
 getfunc:

@@ -158,7 +158,7 @@ end
 getgenv().getscriptfromfunc = function(func: _function)
 	assert(type(func) == "function", "invalid argument #1, function expected")
 	assert(debug.getinfo(func).what ~= "C", "invalid argument #1, Can't to get script from C function")
-	assert(debug.getinfo(func).source:sub(2):find("."), "invalid argument #1, Failed to get Source")
+	assert(debug.getinfo(func).source:sub(2):find("%."), "invalid argument #1, failed to get source")
 	local info = debug.getinfo(func)
 	if not info or not info.source then return nil end
 	local source = info.source
